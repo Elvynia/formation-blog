@@ -20,7 +20,8 @@ export class EditComponent implements OnInit {
 	}
 
 	submit(form: NgForm) {
-		this.onCreate.emit(this.article);
+		this.onCreate.emit(JSON.parse(JSON.stringify(this.article)));
+		form.resetForm();
 	}
 
 }
