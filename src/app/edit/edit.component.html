@@ -1,0 +1,12 @@
+<h2>Créer un nouvel article sur le blog :</h2>
+<form (ngSubmit)="submit(blogForm)" #blogForm="ngForm">
+    <div>
+        <label for="title">Titre :</label>
+        <input id="title" name="title" [(ngModel)]="article.title">
+    </div>
+    <div>
+        <label for="content">Contenu :</label>
+        <textarea id="content" name="content" [(ngModel)]="article.content"></textarea>
+    </div>
+    <button>Valider</button>
+</form>
