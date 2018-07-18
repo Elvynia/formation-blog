@@ -1,3 +1,5 @@
 <h1>{{ title }}</h1>
-<blog-list [articles]="articles"></blog-list>
-<blog-edit (onCreate)="handleCreate($event)"></blog-edit>
+<div class="container">
+    <blog-list [articles]="articles"></blog-list>
+    <blog-edit (onCreate)="handleCreate($event)"></blog-edit>
+</div>
