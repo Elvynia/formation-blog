@@ -1,5 +1,9 @@
 <h1>{{ title }}</h1>
 <div class="container">
-    <blog-list [articles]="articles" (onDelete)="deleteArticle($event)" (onEdit)="editArticle($event)"></blog-list>
-    <blog-edit (onCreate)="handleCreate($event)"></blog-edit>
+    <h4><a href="" (click)="showList = !showList">Créer un nouvel article</a></h4>
+    <blog-list [articles]="articles" *ngIf="showList; else showFormTpl"
+        (onDelete)="deleteArticle($event)" (onEdit)="editArticle($event)"></blog-list>
 </div>
+<ng-template #showFormTpl>
+    <blog-edit (onCreate)="handleCreate($event)"></blog-edit>
+</ng-template>
