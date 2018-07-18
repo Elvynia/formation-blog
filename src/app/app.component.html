@@ -1,5 +1,5 @@
 <h1>{{ title }}</h1>
 <div class="container">
-    <blog-list [articles]="articles"></blog-list>
+    <blog-list [articles]="articles" (onDelete)="deleteArticle($event)" (onEdit)="editArticle($event)"></blog-list>
     <blog-edit (onCreate)="handleCreate($event)"></blog-edit>
 </div>

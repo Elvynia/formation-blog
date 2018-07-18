@@ -19,4 +19,23 @@ export class AppComponent {
 		this.articles.push(article);
 		console.log('Un article à été ajouté : ', article);
 	}
+
+	deleteArticle(id: number) {
+		this.updateList(id);
+	}
+
+	editArticle(id: number) {
+
+	}
+
+	private updateList(id: number, article?: Article) {
+		let index = this.articles.findIndex((a) => a.id === id);
+		if (index >= 0) {
+			if (article) {
+				this.articles.splice(index, 1, article);
+			} else {
+				this.articles.splice(index, 1);
+			}
+		}
+	}
 }
