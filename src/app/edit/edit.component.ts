@@ -2,13 +2,14 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Article } from '../article';
 import { NgForm } from '@angular/forms';
 
+let ID_COUNT: number = 0;
+
 @Component({
 	selector: 'blog-edit',
 	templateUrl: './edit.component.html',
 	styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
-	idCount: number = 0;
 	@Input() article: Article;
 	@Output() onCreate: EventEmitter<Article>;
 	@Output() onUpdate: EventEmitter<Article>;
@@ -16,7 +17,7 @@ export class EditComponent implements OnInit {
 
 	constructor() {
 		this.model = new Article();
-		this.model.id = ++this.idCount;
+		this.model.id = ++ID_COUNT;
 		this.onCreate = new EventEmitter();
 		this.onUpdate = new EventEmitter();
 	}
