@@ -10,6 +10,7 @@ export class AppComponent {
 	title: string;
 	articles: Array<Article>;
 	showList: boolean;
+	editArticle: Article;
 
 	constructor() {
 		this.showList = true;
@@ -22,12 +23,19 @@ export class AppComponent {
 		this.showList = true;
 	}
 
-	deleteArticle(id: number) {
+	handleDelete(id: number) {
 		this.updateList(id);
 	}
 
-	editArticle(id: number) {
+	handleUpdate(article: Article) {
+		this.updateList(article.id, article);
+		this.editArticle = undefined;
+		this.showList = true;
+	}
 
+	showEdit(id: number) {
+		this.editArticle = this.articles.find((a) => a.id === id);
+		this.showList = false;
 	}
 
 	private updateList(id: number, article?: Article) {

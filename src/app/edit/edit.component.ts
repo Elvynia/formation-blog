@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Article } from '../article';
 import { NgForm } from '@angular/forms';
 
@@ -9,22 +9,32 @@ import { NgForm } from '@angular/forms';
 })
 export class EditComponent implements OnInit {
 	idCount: number = 0;
-	article: Article;
+	@Input() article: Article;
 	@Output() onCreate: EventEmitter<Article>;
+	@Output() onUpdate: EventEmitter<Article>;
+	private model: Article;
 
 	constructor() {
-		this.article = new Article();
-		this.article.id = ++this.idCount;
+		this.model = new Article();
+		this.model.id = ++this.idCount;
 		this.onCreate = new EventEmitter();
+		this.onUpdate = new EventEmitter();
 	}
 
 	ngOnInit() {
+		if (this.article) {
+			this.model = this.article;
+		}
 	}
 
 	submit(form: NgForm) {
-		this.onCreate.emit(JSON.parse(JSON.stringify(this.article)));
+		let data: Article = JSON.parse(JSON.stringify(this.model));
+		if (this.article) {
+			this.onUpdate.emit(data)
+		} else {
+			this.onCreate.emit(data);
+		}
 		form.resetForm();
-		this.article.id = ++this.idCount;
 	}
 
 }
