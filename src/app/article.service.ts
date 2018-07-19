@@ -50,11 +50,24 @@ export class ArticleService {
 	}
 
 	read(id: number): Observable<Article> {
-		return null;
+		let result = new Subject<Article>();
+		this.httpClient.get<Article>(this.apiUrl + `/${id}`)
+			.subscribe(
+				(article) => result.next(article),
+				(response: HttpErrorResponse) => result.error(response.message)
+			);
+		return result;
 	}
 
 	update(article: Article): Observable<Article> {
-		return null;
+		let result = new Subject<Article>();
+		this.httpClient.put<Article>(this.apiUrl, article)
+			.subscribe((updateArticle) => {
+				this.republish(article.id, updateArticle);
+				result.next(updateArticle);
+				result.complete();
+			}, (resp: HttpErrorResponse) => result.error(resp.message));
+		return result;
 	}
 
 	delete(id: number): Observable<void> {
