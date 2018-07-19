@@ -20,14 +20,8 @@ export class AppComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		console.log('Appel à subscribe');
-		this.articleService.articles.subscribe((result) => {
-			console.log('Subscribe a reçu une nouvelle liste !');
-			this.articles = result;
-		});
-		console.log('Chargement du mock !');
-		this.articleService.loadMock();
-		console.log('ngOnInit terminé !');
+		this.articleService.list()
+			.subscribe((list) => this.articles = list);
 	}
 
 	handleCreate(article: Article) {
