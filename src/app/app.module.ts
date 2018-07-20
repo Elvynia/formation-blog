@@ -9,12 +9,16 @@ import { EditComponent } from './edit/edit.component';
 import { ArticleService } from './article.service';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './routes';
+import { ViewListComponent } from './view-list/view-list.component';
+import { ViewEditComponent } from './view-edit/view-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
-    EditComponent
+    EditComponent,
+    ViewListComponent,
+    ViewEditComponent
   ],
   imports: [
     BrowserModule,

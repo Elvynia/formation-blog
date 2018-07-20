@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { ListComponent } from './list/list.component';
-import { EditComponent } from './edit/edit.component';
+import { ViewEditComponent } from './view-edit/view-edit.component';
+import { ViewListComponent } from './view-list/view-list.component';
 
 export const ROUTES: Routes = [
-    { path: 'articles', component: ListComponent },
-    { path: 'edit', component: EditComponent },
+    { path: 'articles', component: ViewListComponent },
+    { path: 'edit', component: ViewEditComponent },
     { path: '', redirectTo: '/articles', pathMatch: 'full' }
 ]
