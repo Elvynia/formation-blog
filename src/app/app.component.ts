@@ -31,14 +31,6 @@ export class AppComponent implements OnInit {
 		this.showList = true;
 	}
 
-	handleDelete(id: number) {
-		this.articleService.delete(id)
-			.subscribe({
-				complete: () => console.log(`Article d'id ${id} supprimé avec succès`),
-				error: (message) => console.log(`Impossible de supprimer l'article : ${message}`)
-			});
-	}
-
 	handleUpdate(article: Article) {
 		this.articleService.update(article)
 			.subscribe({
@@ -48,14 +40,6 @@ export class AppComponent implements OnInit {
 					this.showList = true;
 				},
 				error: (message) => console.log(`Impossible de mettre à jour l'article : ${message}`)
-			});
-	}
-
-	showEdit(id: number) {
-		this.articleService.read(id)
-			.subscribe((article) => {
-				this.editArticle = article;
-				this.showList = false;
 			});
 	}
 }
