@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
 import { EditComponent } from './edit/edit.component';
 import { ArticleService } from './article.service';
+import { RouterModule } from '@angular/router';
+import { ROUTES } from './routes';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { ArticleService } from './article.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(ROUTES)
   ],
   providers: [ArticleService],
   bootstrap: [AppComponent]
