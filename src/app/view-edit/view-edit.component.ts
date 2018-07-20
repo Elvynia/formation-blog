@@ -3,6 +3,7 @@ import { Article } from '../article';
 import { ArticleService } from '../article.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
+import { filter, map, concatMap, switchMap } from 'rxjs/operators';
 
 @Component({
 	selector: 'blog-view-edit',
@@ -16,16 +17,27 @@ export class ViewEditComponent implements OnInit {
 		private route: ActivatedRoute, private location: Location) { }
 
 	ngOnInit() {
-		// FIXME: Mauvaise pratique -> subscribe dans subscribe...
-		this.route.queryParamMap.subscribe((paramMap: ParamMap) => {
-			if (paramMap.has('id')) {
-				let id: number = parseInt(paramMap.get('id'));
-				this.articleService.read(id)
-					.subscribe((article) => this.article = article);
-			} else {
-				this.article = undefined;
-			}
-		});
+		// Mauvaise pratique -> subscribe dans subscribe...
+		// this.route.queryParamMap.subscribe((paramMap: ParamMap) => {
+		// 	if (paramMap.has('id')) {
+		// 		let id: number = parseInt(paramMap.get('id'));
+		// 		this.articleService.read(id)
+		// 			.subscribe((article) => this.article = article);
+		// 	} else {
+		// 		this.article = undefined;
+		// 	}
+		// });
+		// Souscrire aux routes sans id pour réinitialiser en mode création.
+		this.route.queryParamMap.pipe(
+			filter((paramMap) => !paramMap.has('id'))
+		).subscribe(() => this.article = undefined);
+		// Souscrire aux routes avec id pour récupérer l'id puis appeler articleService.read.
+		this.route.queryParamMap.pipe(
+			filter((paramMap) => paramMap.has('id')),
+			map((paramMap) => paramMap.get('id')),
+			map((id: string) => parseInt(id)),
+			switchMap((id: number) => this.articleService.read(id))
+		).subscribe((article) => this.article = article);
 	}
 
 	create(article: Article) {
