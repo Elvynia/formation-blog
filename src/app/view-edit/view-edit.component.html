@@ -1,1 +1,4 @@
-<blog-edit [article]="article"></blog-edit>
+<blog-edit [article]="article"
+	(onCreate)="create($event)"
+	(onUpdate)="update($event)">
+</blog-edit>
